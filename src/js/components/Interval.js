@@ -72,9 +72,16 @@ class Interval extends React.Component {
       }
     }
     
+    
     // Calculate the new interval in MS
-    let endDateAndTimeInMS = (new Date(`${endDate} ${endHours}:${endMinutes}:00`)).getTime();
-    let startDateAndTimeInMS = (new Date(`${startDate} ${startHours}:${startMinutes}:00`)).getTime();
+    let endDateAndTime = `${endDate} ${endHours}:${endMinutes}:00`
+    let enddt = endDateAndTime.split(/[- :]/)
+    let endDateAndTimeInMS = new Date(parseInt(enddt[0]), parseInt(enddt[1])-1, parseInt(enddt[2]), parseInt(enddt[3]), parseInt(enddt[4]), parseInt(enddt[5]))
+
+    let startDateAndTime = `${startDate} ${startHours}:${startMinutes}:00`
+    let startdt = startDateAndTime.split(/[- :]/)
+    let startDateAndTimeInMS = new Date(parseInt(startdt[0]), parseInt(startdt[1])-1, parseInt(startdt[2]), parseInt(startdt[3]), parseInt(startdt[4]), parseInt(startdt[5]))
+
     let newInterval = endDateAndTimeInMS - startDateAndTimeInMS
 
     // Convert the interval in MS to an interval Object
