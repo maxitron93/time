@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Interval } from './Interval'
 import { convertIntervalToTime } from '../functions/convertIntervalToTime'
+import { generateNewIntervalState } from '../functions/generateNewIntervalState'
 
 class Calculator extends React.Component {
   state = {
@@ -41,35 +42,7 @@ class Calculator extends React.Component {
     })
 
     // Create the new interval object that will replace this.state.totalInterval
-    let newDays = 0
-    let newFullHours = 0
-    let newHours = 0
-    let newMinutes = 0
-    newIntervalsArray.forEach((current) => {
-      newDays += current.days
-      newFullHours += current.fullHours
-      newHours += current.hours
-      newMinutes += current.minutes
-    })
-    if (newMinutes >= 60) {
-      let remainderHours = Math.floor(newMinutes / 60)
-      let remainderMinutes = newMinutes % 60
-      newHours += remainderHours
-      newMinutes = remainderMinutes
-      newFullHours += remainderHours
-    }
-    if (newHours >= 24) {
-      let remainderDays = Math.floor(newHours / 24)
-      let remainderHours = newHours % 24
-      newHours = remainderHours
-      newDays += remainderDays
-    }
-    let newIntervalState = {
-      days: newDays,
-      fullHours: newFullHours,
-      hours: newHours,
-      minutes: newMinutes
-    }
+    let newIntervalState = generateNewIntervalState(newIntervalsArray)
 
     // Set the new intervals array and enw interval object
     this.setState(() => {
@@ -81,11 +54,42 @@ class Calculator extends React.Component {
   }
 
   addInterval = () => {
+    // Create the new intervals array that will replace this.state.invervals
+    let newLastIntervalID = this.state.lastIntervalID + 1
+    let newIntervalsArray = this.state.intervals
+    newIntervalsArray.push({
+      id: newLastIntervalID,
+      days: 0,
+      fullHours: 8,
+      hours: 8,
+      minutes: 30
+    })
 
+    // Create the new interval object that will replace this.state.totalInterval
+    let newIntervalState = generateNewIntervalState(newIntervalsArray)
+
+    this.setState(() => {
+      return {
+        intervals: newIntervalsArray,
+        totalInterval: newIntervalState
+      }
+    })
   }
 
   removeInterval = () => {
-    
+    // Create the new intervals array that will replace this.state.invervals
+    let newIntervalsArray = this.state.intervals
+    newIntervalsArray.pop()
+
+    // Create the new interval object that will replace this.state.totalInterval
+    let newIntervalState = generateNewIntervalState(newIntervalsArray)
+
+    this.setState(() => {
+      return {
+        intervals: newIntervalsArray,
+        totalInterval: newIntervalState
+      }
+    })
   }
 
   render() {
@@ -105,10 +109,10 @@ class Calculator extends React.Component {
         <div className="calculator__totals">
           
           <div className="button-container">
-            <div className="calculator__totals__button button-add"><ion-icon name="add-circle"></ion-icon>Add interval</div>
+            <div className="calculator__totals__button button-add" onClick={this.addInterval}><ion-icon name="add-circle"></ion-icon>Add interval</div>
           </div>
           <div className="button-container">
-            <div className="calculator__totals__button button-remove"><ion-icon name="remove-circle"></ion-icon>Remove interval</div>
+            <div className="calculator__totals__button button-remove" onClick={this.removeInterval}><ion-icon name="remove-circle"></ion-icon>Remove interval</div>
           </div>
   
           <div className="total">
