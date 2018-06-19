@@ -1,0 +1,18 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'Ubuntu', sans-serif;
+  color: $dark-text-color;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  height: 100%;
+  padding-bottom: 50px;
+}

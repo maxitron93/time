@@ -1,0 +1,123 @@
+.calculator {
+  width: 550px;
+  margin: 100px auto;
+}
+
+.calculator__headings {
+  display: flex;
+  padding-bottom: 5px;
+  border-bottom: 2px solid $header-footer-background;
+}
+
+.calculator__headings__heading {
+  display: inline-block;
+  width: 33.3%;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.calculator__headings__start {
+  color: $green-text-color;
+}
+
+.calculator__headings__end {
+  color: $red-text-color;
+}
+
+.calculator__headings__total {
+  color: $blue-text-color;
+}
+
+.calculator__totals {
+  display: flex;
+  padding-top: 10px;
+  border-top: 2px solid $header-footer-background; 
+  align-items: center;
+}
+
+.button-container {
+  display: inline-block;
+  width: 33.3%;
+  text-align: center;
+}
+
+.calculator__totals__button {
+  border: none;
+  font-size: 1.6rem;
+  padding: 6px 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 30px;
+  width: 170px;
+  margin: 0 auto;
+}
+
+.button-add {
+  background: $button-add-background;
+}
+
+.button-add:hover {
+  background: $button-add-background-hover;
+}
+
+.button-add ion-icon {
+  color: $green-text-color;
+  font-size: 1.2rem;
+  transform: scale(1.7);
+  margin-right: 10px;
+}
+
+.button-remove {
+  background: $button-remove-background;
+}
+
+.button-remove:hover {
+  background: $button-remove-background-hover;
+}
+
+.button-remove ion-icon {
+  color: $red-text-color;
+  font-size: 1.2rem;
+  transform: scale(1.7);
+  margin-right: 10px;
+}
+
+.total {
+  display: inline-block;
+  font-size: 1.6rem;
+  width: 33.3%;
+  text-align: end;
+  padding-right: 15px;
+}
+
+.total__days, 
+.total__hours {
+  margin: 5px 0px;
+}
+
+.total__time-display {
+  display: inline-block;
+  width: 23.3%;
+  text-align: end;
+  color: $blue-text-color;
+  font-size: 2rem;
+}
+
+.total__unit-display {
+  display: inline-block;
+  width: 10%;
+  text-align: start;
+}
+
+
+// <div className="total">
+//   <div className="total__days">
+//     <span className="total__time-display">5</span><span className="total__unit-display">d</span>
+//     <span className="total__time-display">13</span><span className="total__unit-display">h</span>
+//     <span className="total__time-display">15</span><span className="total__unit-display">m</span>
+//   </div>
+//   <div className="total__hours">
+//    <span className="total__time-display">133</span><span className="total__unit-display">h</span>
+//    <span className="total__time-display">15</span><span className="total__unit-display">m</span>
+//   </div>
+// </div>

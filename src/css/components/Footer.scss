@@ -1,0 +1,14 @@
+.footer {
+  height: 50px;
+  background: $header-footer-background;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer__text {
+  margin: 0;
+  padding: 15px 0 0 20px;
+  color: $light-text-color;
+  font-size: 1.6rem;
+}

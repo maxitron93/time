@@ -1,0 +1,11 @@
+.header {
+  height: 80px;
+  background: $header-footer-background;
+}
+
+.header__title {
+  margin: 0;
+  padding: 20px;
+  color: $light-text-color;
+  font-size: 3rem;
+}
