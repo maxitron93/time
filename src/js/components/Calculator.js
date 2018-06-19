@@ -4,6 +4,42 @@ import { Interval } from './Interval'
 import { convertIntervalToTime } from '../functions/convertIntervalToTime'
 
 class Calculator extends React.Component {
+  state = {
+    intervals: [
+      {
+        id: 1,
+        days: 0,
+        fullHours: 8,
+        hours: 8,
+        minutes: 30
+      },
+      {
+        id: 2,
+        days: 0,
+        fullHours: 8,
+        hours: 8,
+        minutes: 30
+      }
+    ],
+    lastIntervalID: 2
+  }
+
+  updateIntervals = (intervalID, newIntervalObject) => {
+    let newIntervalsArray = this.state.intervals.map((current) => {
+      if (current.id === intervalID) {
+        return newIntervalObject
+      } else {
+        return current
+      }
+    })
+
+    this.setState(() => {
+      return {
+        intervals: newIntervalsArray
+      }
+    })
+  }
+
   render() {
     return (
       <div className="calculator">
@@ -14,7 +50,9 @@ class Calculator extends React.Component {
           <div className="calculator__headings__heading calculator__headings__total">Interval</div> 
         </div>
 
-        <Interval />
+        {this.state.intervals.map((current, index) => {
+          return <Interval key={index} intervalObject={current} updateIntervals={this.updateIntervals}/>  
+        })}
 
         <div className="calculator__totals">
           
@@ -43,3 +81,5 @@ class Calculator extends React.Component {
     )
   }
 }
+
+export { Calculator }

@@ -1,6 +1,6 @@
 // Takes in an interval in ms and outputs an object with days, hours and minutes
 
-const convertIntervalToTime = (intervalInMS) => {
+const convertIntervalToTime = (intervalInMS, IntervalID) => {
   let days, fullHours, hours, minutes
   
   if (intervalInMS < 0) {
@@ -16,6 +16,7 @@ const convertIntervalToTime = (intervalInMS) => {
   }
 
   return {
+    id: IntervalID,
     days: days,
     fullHours: fullHours,
     hours: hours,
