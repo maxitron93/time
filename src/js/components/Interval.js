@@ -20,6 +20,7 @@ class Interval extends React.Component {
   startMinutesRef = React.createRef();
   startAMorPMRef = React.createRef();
   
+  // Set the default date of the date selectors
   defaultDate = (() => {
     let today = new Date();
     let year = today.getFullYear() 
@@ -31,6 +32,7 @@ class Interval extends React.Component {
     return defaultDate
   })();
 
+  // Update the state in the Calculator Component when a selection changes
   updateInterval = () => {
     // Get the value from all the end drop downs
     let endDate = this.endDateRef.current.value
@@ -70,12 +72,15 @@ class Interval extends React.Component {
       }
     }
     
+    // Calculate the new interval in MS
     let endDateAndTimeInMS = (new Date(`${endDate} ${endHours}:${endMinutes}:00`)).getTime();
     let startDateAndTimeInMS = (new Date(`${startDate} ${startHours}:${startMinutes}:00`)).getTime();
     let newInterval = endDateAndTimeInMS - startDateAndTimeInMS
 
+    // Convert the interval in MS to an interval Object
     let newIntervalObject = convertIntervalToTime(newInterval, this.state.id)
 
+    // Update the state in the Calculator Component when a selection changes
     this.props.updateIntervals(this.state.id, newIntervalObject)
   }
 
@@ -119,7 +124,7 @@ class Interval extends React.Component {
 
             <span className="colon">:</span>
 
-             <select className="interval__start__minutes time-selector" defaultValue="00" ref={this.startMinutesRef}>
+             <select className="interval__start__minutes time-selector" defaultValue="00" ref={this.startMinutesRef} onChange={this.updateInterval}>
               <option value="0" className="select-option">00</option>
               <option value="5" className="select-option">05</option>
               <option value="10" className="select-option">10</option>
@@ -134,7 +139,7 @@ class Interval extends React.Component {
               <option value="55" className="select-option">55</option>
             </select>  
 
-            <select className="interval__start__AMPM time-selector" defaultValue="AM" ref={this.startAMorPMRef}>
+            <select className="interval__start__AMPM time-selector" defaultValue="AM" ref={this.startAMorPMRef} onChange={this.updateInterval}>
               <option value="AM" className="select-option">AM</option>
               <option value="PM" className="select-option">PM</option>
             </select> 
@@ -143,10 +148,10 @@ class Interval extends React.Component {
 
         <div className="interval__end">
           <div className="interval__top-section">
-            <input type="date" className="interval__end__date date-selector" defaultValue={this.defaultDate} ref={this.endDateRef}/>
+            <input type="date" className="interval__end__date date-selector" defaultValue={this.defaultDate} ref={this.endDateRef} onChange={this.updateInterval}/>
           </div>
           <div className="interval__bottom-section">
-            <select className="interval__end__hours time-selector" defaultValue="5" ref={this.endHoursRef}>
+            <select className="interval__end__hours time-selector" defaultValue="5" ref={this.endHoursRef} onChange={this.updateInterval}>
               <option value="1" className="select-option">1</option>
               <option value="2" className="select-option">2</option>
               <option value="3" className="select-option">3</option>
@@ -163,7 +168,7 @@ class Interval extends React.Component {
 
             <span className="colon">:</span>
 
-            <select className="interval__end__minutes time-selector" defaultValue="30" ref={this.endMinutesRef}>
+            <select className="interval__end__minutes time-selector" defaultValue="30" ref={this.endMinutesRef} onChange={this.updateInterval}>
               <option value="0" className="select-option">00</option>
               <option value="5" className="select-option">05</option>
               <option value="10" className="select-option">10</option>
@@ -178,7 +183,7 @@ class Interval extends React.Component {
               <option value="55" className="select-option">55</option>
             </select>  
 
-            <select className="interval__end__AMPM time-selector" defaultValue="PM" ref={this.endAMorPMRef}>
+            <select className="interval__end__AMPM time-selector" defaultValue="PM" ref={this.endAMorPMRef} onChange={this.updateInterval}>
               <option value="AM" className="select-option">AM</option>
               <option value="PM" className="select-option">PM</option>
             </select> 

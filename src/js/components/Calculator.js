@@ -21,10 +21,17 @@ class Calculator extends React.Component {
         minutes: 30
       }
     ],
-    lastIntervalID: 2
+    lastIntervalID: 2,
+    totalInterval: {
+      days: 0,
+      fullHours: 17,
+      hours: 17,
+      minutes: 0,
+    }
   }
 
   updateIntervals = (intervalID, newIntervalObject) => {
+    // Create the new intervals array that will replace this.state.invervals
     let newIntervalsArray = this.state.intervals.map((current) => {
       if (current.id === intervalID) {
         return newIntervalObject
@@ -33,11 +40,52 @@ class Calculator extends React.Component {
       }
     })
 
+    // Create the new interval object that will replace this.state.totalInterval
+    let newDays = 0
+    let newFullHours = 0
+    let newHours = 0
+    let newMinutes = 0
+    newIntervalsArray.forEach((current) => {
+      newDays += current.days
+      newFullHours += current.fullHours
+      newHours += current.hours
+      newMinutes += current.minutes
+    })
+    if (newMinutes >= 60) {
+      let remainderHours = Math.floor(newMinutes / 60)
+      let remainderMinutes = newMinutes % 60
+      newHours += remainderHours
+      newMinutes = remainderMinutes
+      newFullHours += remainderHours
+    }
+    if (newHours >= 24) {
+      let remainderDays = Math.floor(newHours / 24)
+      let remainderHours = newHours % 24
+      newHours = remainderHours
+      newDays += remainderDays
+    }
+    let newIntervalState = {
+      days: newDays,
+      fullHours: newFullHours,
+      hours: newHours,
+      minutes: newMinutes
+    }
+
+    // Set the new intervals array and enw interval object
     this.setState(() => {
       return {
-        intervals: newIntervalsArray
+        intervals: newIntervalsArray,
+        totalInterval: newIntervalState
       }
     })
+  }
+
+  addInterval = () => {
+
+  }
+
+  removeInterval = () => {
+    
   }
 
   render() {
@@ -65,13 +113,13 @@ class Calculator extends React.Component {
   
           <div className="total">
             <div className="total__days">
-              <span className="total__time-display"></span><span className="total__unit-display">d</span>
-              <span className="total__time-display"></span><span className="total__unit-display">h</span>
-              <span className="total__time-display"></span><span className="total__unit-display">m</span>
+              <span className="total__time-display">{this.state.totalInterval.days}</span><span className="total__unit-display">d</span>
+              <span className="total__time-display">{this.state.totalInterval.hours}</span><span className="total__unit-display">h</span>
+              <span className="total__time-display">{this.state.totalInterval.minutes}</span><span className="total__unit-display">m</span>
             </div>
             <div className="total__hours">
-              <span className="total__time-display"></span><span className="total__unit-display">h</span>
-              <span className="total__time-display"></span><span className="total__unit-display">m</span>
+              <span className="total__time-display">{this.state.totalInterval.fullHours}</span><span className="total__unit-display">h</span>
+              <span className="total__time-display">{this.state.totalInterval.minutes}</span><span className="total__unit-display">m</span>
             </div>
           </div>
 
