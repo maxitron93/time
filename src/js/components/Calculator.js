@@ -71,6 +71,7 @@ class Calculator extends React.Component {
     this.setState(() => {
       return {
         intervals: newIntervalsArray,
+        lastIntervalID: newLastIntervalID,
         totalInterval: newIntervalState
       }
     })
